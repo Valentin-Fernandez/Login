@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
         const checkAuth = async () => {
             try {
                 const response = await axios.get('https://login-itj2.onrender.com/api/verify', { withCredentials: true });
+                console.log('Respuesta backend:', response.data);
                 setUser(response.data.user);
             } catch {
                 setUser(null);
