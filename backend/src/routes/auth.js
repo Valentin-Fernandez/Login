@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
         return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
     const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token', token, { httpOnly: true, secure: false });
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
     res.json({ message: 'Login exitoso' });
 });
 
