@@ -10,7 +10,7 @@ export default function Login() {
     const handleLogin = async e => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8080/api/login', { username, password }, { withCredentials: true });
+            await axios.post('https://login-itj2.onrender.com/api/login', { username, password }, { withCredentials: true });
             navigate('/dashboard');
         } catch (error) {
             console.error('Error en el login', error.response?.data?.message);

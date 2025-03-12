@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/verify', { withCredentials: true });
+                const response = await axios.get('https://login-itj2.onrender.com/api/verify', { withCredentials: true });
                 setUser(response.data.user);
             } catch {
                 setUser(null);
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const logout = async () => {
-        await axios.post('http://localhost:8080/api/logout', {}, { withCredentials: true });
+        await axios.post('https://login-itj2.onrender.com/api/logout', {}, { withCredentials: true });
         setUser(null);
     };
 
