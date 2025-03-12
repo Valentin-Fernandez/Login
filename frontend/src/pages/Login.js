@@ -10,7 +10,8 @@ export default function Login() {
     const handleLogin = async e => {
         e.preventDefault();
         try {
-            await axios.post('https://login-itj2.onrender.com/api/login', { username, password }, { withCredentials: true });
+            const response = await axios.post('https://login-itj2.onrender.com/api/login', { username, password }, { withCredentials: true });
+            console.log('Respuesta del backend:', response.data);
             navigate('/dashboard');
         } catch (error) {
             console.error('Error en el login', error.response?.data?.message);
