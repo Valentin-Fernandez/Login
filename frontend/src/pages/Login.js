@@ -3,14 +3,14 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const handleLogin = async e => {
         e.preventDefault();
         try {
-            const res = await axios.post('https://login-itj2.onrender.com/api/login', { email, password }, { withCredentials: true });
+            const res = await axios.post('https://login-itj2.onrender.com/api/login', { username, password }, { withCredentials: true });
             alert('Login exitoso');
             window.location.href = '/admin';
         } catch (err) {
@@ -23,7 +23,7 @@ const Login = () => {
             <form onSubmit={handleLogin} className="bg-white p-6 rounded-lg shadow-lg">
                 <h2 className="text-2xl mb-4">Iniciar Sesión</h2>
                 {error && <p className="text-red-500">{error}</p>}
-                <input type="text" placeholder="User" value={username} onChange={e => setEmail(e.target.value)} className="w-full p-2 border rounded mb-2" />
+                <input type="text" placeholder="User" value={username} onChange={e => setUsername(e.target.value)} className="w-full p-2 border rounded mb-2" />
                 <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} className="w-full p-2 border rounded mb-4" />
                 <button className="w-full bg-blue-500 text-white p-2 rounded">Entrar</button>
             </form>
