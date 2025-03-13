@@ -14,7 +14,12 @@ const Admin = () => {
     const handleInformation = async () => {
         try {
             const res = await axios.get('https://login-itj2.onrender.com/api/admin', { withCredentials: true });
-            setMessage(res.data);
+            // Verifica si la respuesta contiene la clave 'message'
+            if (res.data && typeof res.data.message === 'string') {
+                setMessage(res.data.message);
+            } else {
+                setError('Formato de respuesta inesperado.');
+            }
         } catch (error) {
             setError(error.response?.data?.message || 'Error de autenticacion creeria');
         }
