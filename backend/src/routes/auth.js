@@ -20,25 +20,28 @@ router.post('/login', async (req, res) => {
     if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
-    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', path: '/', maxAge: 3600000 });
-    console.log('Cookie enviada:', res.getHeaders()['set-cookie']); // 🔍 Verifica que la cookie se está enviando
+    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '1h' });
+    res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 3600000 });
     res.json({ message: 'Login exitoso' });
 });
 
-router.get('/verify', async (req, res) => {
+// Middleware para autenticar
+const authMiddleware = (req, res, next) => {
     const token = req.cookies.token;
-    if (!token) {
-        return res.status(401).json({
-            message: 'No autenticado',
-        });
+    if (!token) return res.status(401).json({ message: 'Acceso denegado' });
+
+    try {
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = verified;
+        next();
+    } catch (err) {
+        res.status(401).json({ message: 'Token inválido' });
     }
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(403).json({ message: 'Token invalido' });
-        }
-        res.json({ user: { username: decoded.username } });
-    });
+};
+
+// Ruta protegida
+app.get('/api/admin', authMiddleware, (req, res) => {
+    res.json({ message: 'Bienvenido al panel administrativo' });
 });
 
 router.post('/logout', (req, res) => {

@@ -1,26 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import ProtectedRoute from './components/ProtectedRoute';
+import Login from './pages/Login.js';
+import Admin from './pages/Admin.js';
 
-export default function App() {
+const App = () => {
     return (
-        <AuthProvider>
-            <Router>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route
-                        path="/dashboard"
-                        element={
-                            <ProtectedRoute>
-                                <Dashboard />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route path="*" element={<Login />} />
-                </Routes>
-            </Router>
-        </AuthProvider>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/admin" element={<Admin />} />
+            </Routes>
+        </Router>
     );
-}
+};
+
+export default App;
