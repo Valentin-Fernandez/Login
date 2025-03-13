@@ -40,7 +40,7 @@ const authMiddleware = (req, res, next) => {
 };
 
 // Ruta protegida
-app.get('/api/admin', authMiddleware, (req, res) => {
+router.get('/api/admin', authMiddleware, (req, res) => {
     res.json({ message: 'Bienvenido al panel administrativo' });
 });
 
