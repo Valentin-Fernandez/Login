@@ -30,6 +30,7 @@ router.post('/login', async (req, res) => {
 // Middleware para autenticar
 const authMiddleware = (req, res, next) => {
     const token = req.cookies.token;
+    console.log('TOKEN:', token);
     if (!token) return res.status(401).json({ message: 'Acceso denegado' });
 
     try {
