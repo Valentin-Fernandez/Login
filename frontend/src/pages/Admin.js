@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const Admin = () => {
     const handleLogout = async () => {
         await axios.post('https://login-itj2.onrender.com/api/logout', {}, { withCredentials: true });
