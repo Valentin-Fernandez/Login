@@ -49,6 +49,7 @@ router.get('/admin', authMiddleware, (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
+    console.log('MOMENTO LOGOUT');
     res.clearCookie('token');
     res.json({ message: 'Logout exitoso' });
 });
