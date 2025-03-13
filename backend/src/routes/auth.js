@@ -33,7 +33,7 @@ const authMiddleware = (req, res, next) => {
     if (!token) return res.status(401).json({ message: 'Acceso denegado' });
 
     try {
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        const verified = jwt.verify(token, JWT_SECRET);
         req.user = verified;
         next();
     } catch (err) {
