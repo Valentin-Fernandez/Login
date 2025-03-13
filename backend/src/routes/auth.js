@@ -16,7 +16,9 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    console.log(username, password);
     const user = await User.findOne({ username });
+    console.log('Username:', user);
     if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
